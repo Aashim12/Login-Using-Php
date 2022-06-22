@@ -34,11 +34,8 @@ if(isset($_POST['submit'])){
        }
      }
       else{
-        
-        $error="Username or password is not correct";
+        echo "<script>alert('$error');</script>";
       }
-      
-       
   }
 }
 ?>
