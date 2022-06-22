@@ -102,7 +102,15 @@
                     <p> $3550 / $5000</p>
                     </div>
             </div>
-
+            <div class="childed">
+                <img src="assests/ben-white-qDY9ahp0Mto-unsplash.jpg" alt="">
+                <h3>Children to get education</h3>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga animi autem cupiditate commodi? Nulla facere molestiae sed alias, itaque expedita, repellendus </p>
+                    <div class="donateinfo">
+                        <button>Donate</button>
+                        <p> $3550 / $5000</p>
+                        </div>
+                </div>
 
 
 
