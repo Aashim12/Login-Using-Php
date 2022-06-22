@@ -14,13 +14,14 @@ if(isset($_POST['submit'])){
        $nowTimeStamp = date("Y-m-d H:i:s");
       //  $conn=mysqli_connect("localhost","root","");
       //  $db=mysqli_select_db($conn,"test");
-      $query=mysqli_query($conn," SELECT * FROM userlogin WHERE pass='$pass' AND (user='$user'
+     $query=mysqli_query($conn," SELECT * FROM userlogin WHERE pass='$pass' AND (user='$user'
                                       OR email='$user' ) ");
       
       $rows=mysqli_num_rows($query);
-
+ 
       if($rows==1){
         $row=mysqli_fetch_assoc($query);
+       
        $_SESSION['ROLE']=$row->roles;
        $_SESSION['IS_LOGIN']='yes';
        if($row['roles']=='1'){
@@ -46,7 +47,7 @@ if(isset($_POST['submit'])){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel= "stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
     <title>Login form</title>
 </head>
 <body>

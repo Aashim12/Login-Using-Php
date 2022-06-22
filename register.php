@@ -19,6 +19,7 @@ if(isset($_POST['submit'])){
        $nowTimeStamp = date("Y-m-d H:i:s");  
       //  $conn=mysqli_connect("localhost","root","");
       //  $db=mysqli_select_db($conn,"test");
+
       $check_user=mysqli_query($conn,"SELECT user  from userlogin where user = '$user'");
       $check_email=mysqli_query($conn,"SELECT email  from userlogin where email = '$email'");
        if(mysqli_num_rows($check_user)>0){
@@ -26,16 +27,18 @@ if(isset($_POST['submit'])){
        }
      else if(mysqli_num_rows($check_email)>0){
         $error="This email is already registered . Enter a different email address";
+        echo "<script>alert('$error');</script>";  
     }
        else{ 
        $query=mysqli_query($conn,"INSERT INTO userlogin (user,pass,email,datebirth,firstname,lastname,
-                            phoneno) VALUES ('$user','$pass','$email','$birth','$first_name',
-                                                 '$last_name','$phone')");
+                            phoneno,dateregistered) VALUES ('$user','$pass','$email','$birth','$first_name',
+                                                 '$last_name','$phone',' $nowTimeStamp')");
       if ($query){
       header('Location:demo.php');
      }
       else{
         $error="Enter a valid username or password";
+        echo "<script>alert('$error');</script>";  
       }
          }
  }
@@ -62,9 +65,6 @@ if(isset($_POST['submit'])){
           <input type="password" placeholder="Enter your password" id="pass" name="pass"  required="required"><br></br>
           <input type="text" placeholder="Enter your Phonenumber" id="phone" name="phone"  required="required"><br></br>
           <input type="submit" value="Register" name="submit"><br></br>
-          <?php 
-        echo "<script>alert('$error');</script>";  
-        ?>
         </form>   
 
      </div> 
