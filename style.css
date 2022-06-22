@@ -1,3 +1,12 @@
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+    transition: background-color 600000s 0s, color 600000s 0s;
+}
+input[data-autocompleted] {
+    background-color: transparent !important;
+}
+/* This particular piece of code is for autofilling changing the color of textfields in form 
+   to maintain it. */
 h1{
     text-align: center;
 }

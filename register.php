@@ -1,4 +1,5 @@
 <?php
+require('db.php');
 $error='';
 if(isset($_POST['submit'])){
    if(empty($_POST['user']) || empty($_POST['pass'])){
@@ -16,21 +17,28 @@ if(isset($_POST['submit'])){
        $pass=$_POST['pass'];
        $phone=$_POST['phone'];
        $nowTimeStamp = date("Y-m-d H:i:s");  
-       $conn=mysqli_connect("localhost","root","");
-       $db=mysqli_select_db($conn,"test");
-      $query=mysqli_query($conn,"INSERT INTO userlogin (user,pass,email,datebirth,firstname,lastname,
+      //  $conn=mysqli_connect("localhost","root","");
+      //  $db=mysqli_select_db($conn,"test");
+      $check_user=mysqli_query($conn,"SELECT user  from userlogin where user = '$user'");
+      $check_email=mysqli_query($conn,"SELECT email  from userlogin where email = '$email'");
+       if(mysqli_num_rows($check_user)>0){
+           $error="Enter a different username";
+       }
+     else if(mysqli_num_rows($check_email)>0){
+        $error="This email is already registered . Enter a different email address";
+    }
+       else{ 
+       $query=mysqli_query($conn,"INSERT INTO userlogin (user,pass,email,datebirth,firstname,lastname,
                             phoneno) VALUES ('$user','$pass','$email','$birth','$first_name',
                                                  '$last_name','$phone')");
-
-
       if ($query){
-        
-        header('Location:demo.php');
+      header('Location:demo.php');
      }
       else{
         $error="Enter a valid username or password";
       }
-   }
+         }
+ }
 }
 ?>
 <html lang="en">
@@ -46,20 +54,19 @@ if(isset($_POST['submit'])){
 <div class="login">
         <h1> Register </h1>
           <form action="" method="POST" style="text-align:center;">
-          <input type="text" placeholder="Enter your First name" id="first" name="first"><br></br>
-          <input type="text" placeholder="Enter your Last name" id="second" name="second"><br></br>
-          <input type="date" placeholder="Enter your Date of birth" id="birth" name="birth"><br></br>
-          <input type="text" placeholder="Enter your username" id="user" name="user"><br></br>
-          <input type="email" placeholder="Enter your Email-id" id="email" name="email"><br></br>
-          <input type="password" placeholder="Enter your password" id="pass" name="pass"><br></br>
-          <input type="text" placeholder="Enter your Phonenumber" id="phone" name="phone"><br></br>
-          <input type="submit" value="Register" name="submit">
-        </form>   
-    <span>
-        <?php 
-        echo $error;
+          <input type="text" placeholder="Enter your First name" id="first" name="first"  required="required"><br></br>
+          <input type="text" placeholder="Enter your Last name" id="second" name="second"  required="required"><br></br>
+          <input type="date" placeholder="Enter your Date of birth" id="birth" name="birth"  required="required"><br></br>
+          <input type="text" placeholder="Enter your username" id="user" name="user"  required="required"><br></br>
+          <input type="email" placeholder="Enter your Email-id" id="email" name="email"  required="required"><br></br>
+          <input type="password" placeholder="Enter your password" id="pass" name="pass"  required="required"><br></br>
+          <input type="text" placeholder="Enter your Phonenumber" id="phone" name="phone"  required="required"><br></br>
+          <input type="submit" value="Register" name="submit"><br></br>
+          <?php 
+        echo "<script>alert('$error');</script>";  
         ?>
-    </span>
+        </form>   
+
      </div> 
     
 </body>

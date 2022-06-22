@@ -1,4 +1,5 @@
 <?php
+require('db.php');
 $error='';
 session_start();
 if(isset($_POST['submit'])){
@@ -11,11 +12,11 @@ if(isset($_POST['submit'])){
        $user=$_POST['user'];
        $pass=$_POST['pass'];
        $nowTimeStamp = date("Y-m-d H:i:s");
-       $conn=mysqli_connect("localhost","root","");
-       $db=mysqli_select_db($conn,"test");
+      //  $conn=mysqli_connect("localhost","root","");
+      //  $db=mysqli_select_db($conn,"test");
       $query=mysqli_query($conn," SELECT * FROM userlogin WHERE pass='$pass' AND (user='$user'
                                       OR email='$user' ) ");
-
+      
       $rows=mysqli_num_rows($query);
 
       if($rows==1){
@@ -27,7 +28,7 @@ if(isset($_POST['submit'])){
         die();
        }
        else{
-        header('Location:register.php');
+        header('Location:index.php');
         die();
        }
      }
@@ -53,7 +54,7 @@ if(isset($_POST['submit'])){
         <h1> Login </h1>
           <form action="" method="POST" style="text-align:center;">
           <input type="text" placeholder="Username or Email" id="user" name="user" required="required"><br></br>
-          <input type="password" placeholder="Password" id="pass" name="pass"><br></br>
+          <input type="password" placeholder="Password" id="pass" name="pass" required="required"><br></br>
           <input type="submit" value="Login" name="submit"><br></br>
           <?php echo $error;?>
           <span>
