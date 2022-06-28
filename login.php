@@ -1,7 +1,7 @@
 <?php
 require('db.php');
 $error='';
-session_start();
+
 if(isset($_POST['submit'])){
    if(empty($_POST['user']) || empty($_POST['pass'])){
     $error="Username or password is invalid";
@@ -21,20 +21,23 @@ if(isset($_POST['submit'])){
  
       if($rows==1){
         $row=mysqli_fetch_assoc($query);
-       
-       $_SESSION['ROLE']=$row->roles;
        $_SESSION['IS_LOGIN']='yes';
+       $_SESSION['role']='0';
        if($row['roles']=='1'){
-        header('Location:admin.php');
+        header('Location:index.php');
+        $_SESSION['role']='1';
         die();
        }
        else{
+
         header('Location:index.php');
+
         die();
        }
      }
       else{
-        echo "<script>alert('$error');</script>";
+       $error= "Username or password is invalid";
+        echo "<script>alert('$error')</script>";
       }
   }
 }
@@ -54,7 +57,6 @@ if(isset($_POST['submit'])){
           <input type="text" placeholder="Username or Email" id="user" name="user" required="required"><br></br>
           <input type="password" placeholder="Password" id="pass" name="pass" required="required"><br></br>
           <input type="submit" value="Login" name="submit"><br></br>
-          <?php echo $error;?>
           <span>
             New User ? <a href=register.php style="color:#963dd5;">Click here </a>
               </span>

@@ -11,7 +11,25 @@
 <body>
 
 <?php
+
 require('db.php');
+// $role=$_SESSION['role'];
+// echo "Your role is $role ";
+
+if( !isset($_SESSION['IS_LOGIN']) && !isset($_SESSION['role'])  ){
+      header('location:login.php');
+      die();
+}
+else if(isset($_SESSION['IS_LOGIN']) && $_SESSION['role']=='0'){
+  $message="You are not allowed to access this page";
+
+  echo "<script>alert('$message');</script>";
+  ?>
+  <a href="index.php">Return to home</a>
+<?php  
+die();
+}
+
 $query=mysqli_query($conn," SELECT * FROM userlogin ");
 ?>
 <div class="container">
@@ -36,9 +54,15 @@ $query=mysqli_query($conn," SELECT * FROM userlogin ");
    <td><?php echo $data['user']; ?> </td>
    <td><?php echo $data['phoneno']; ?> </td>
    <td><?php echo $data['datebirth']; ?> </td>
+   <a href="logout.php">Logout</a>
  <tr>
+ 
  <?php
-  $sn++;} } else { ?>
+  $sn++;} 
+  
+  }
+   
+  else { ?>
 <tr>
      <td colspan="6">No data found</td>
     </tr>
@@ -47,4 +71,4 @@ $query=mysqli_query($conn," SELECT * FROM userlogin ");
   </div>
 </body>
 </html>
-
+  

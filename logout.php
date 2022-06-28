@@ -1,6 +1,6 @@
 <?php
 session_start();
-unset($_SESSION['ROLE']);
+unset($_SESSION['role']);
 unset($_SESSION['IS_LOGIN']);
-header('location:demo.php');
+header('location:login.php');
 ?>

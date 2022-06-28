@@ -27,7 +27,7 @@ if(isset($_POST['submit'])){
        }
      else if(mysqli_num_rows($check_email)>0){
         $error="This email is already registered . Enter a different email address";
-        echo "<script>alert('$error');</script>";  
+        echo "<script>alert($error)</script>";  
     }
        else{ 
        $query=mysqli_query($conn,"INSERT INTO userlogin (user,pass,email,datebirth,firstname,lastname,
@@ -38,7 +38,7 @@ if(isset($_POST['submit'])){
      }
       else{
         $error="Enter a valid username or password";
-        echo "<script>alert('$error');</script>";  
+       
       }
          }
  }
@@ -65,7 +65,8 @@ if(isset($_POST['submit'])){
           <input type="password" placeholder="Enter your password" id="pass" name="pass"  required="required"><br></br>
           <input type="text" placeholder="Enter your Phonenumber" id="phone" name="phone"  required="required"><br></br>
           <input type="submit" value="Register" name="submit"><br></br>
-          <span>
+          <span><?php echo $error ; ?></span><br></br>
+           <span>
             Already have an account ? <a href=demo.php style="color:#000;">Log in.</a>
               </span>
         </form>   
